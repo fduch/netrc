@@ -88,5 +88,17 @@ machine machine.one login
 EOF;
         $this->parser->parse($netrc);
     }
+
+    /**
+     * @expectedException Fduch\Netrc\Exception\ParseException
+     * @test
+     */
+    public function testAttemtToSetInfoForUnknownMachineThrowsException()
+    {
+        $netrc = <<<EOF
+login john
+EOF;
+        $this->parser->parse($netrc);
+    }
 }
  

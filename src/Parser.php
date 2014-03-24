@@ -65,6 +65,9 @@ class Parser
                 if (!isset($tokens[$i+1])) {
                     throw new ParseException("Cannot fetch value of '$tokens[$i]' key for '$currentMachine' machine");
                 }
+                if (!$currentMachine) {
+                    throw new ParseException("Cannot handle key '$currentToken' for unset machine");
+                }
                 $result[$currentMachine][$currentToken] = $tokens[$i+1];
                 $i+=2;
             }
