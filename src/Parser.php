@@ -60,7 +60,7 @@ class Parser
                 $i++;
             } else {
                 if (!in_array($currentToken, static::$netrcKeys)) {
-                    throw new ParseException("Unknown key detected");
+                    throw new ParseException("Cannot handle unknown key '$currentToken' for '$currentMachine' machine");
                 }
                 if (!isset($tokens[$i+1])) {
                     throw new ParseException("Cannot fetch value of '$tokens[$i]' key for '$currentMachine' machine");
