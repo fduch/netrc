@@ -63,7 +63,7 @@ class Parser
                     throw new ParseException("Unknown key detected");
                 }
                 if (!isset($tokens[$i+1])) {
-                    throw new ParseException("Cannot fetch value of $tokens[$i] key for $currentMachine machine");
+                    throw new ParseException("Cannot fetch value of '$tokens[$i]' key for '$currentMachine' machine");
                 }
                 $result[$currentMachine][$currentToken] = $tokens[$i+1];
                 $i+=2;
