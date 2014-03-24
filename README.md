@@ -33,7 +33,7 @@ try {
     // dumps key-value array corresponding to machine.one entry
     var_dump($parsed['machine.one']);
 } catch (ParseException $e) {
-    //somethin is wrong with your netrc file
+    //something is wrong with your netrc file
 }
 
 ```
