@@ -76,5 +76,17 @@ machine
 EOF;
         $this->parser->parse($netrc);
     }
+
+    /**
+     * @expectedException Fduch\Netrc\Exception\ParseException
+     * @test
+     */
+    public function testUnsetValueForValidKeyThrowsException()
+    {
+        $netrc = <<<EOF
+machine machine.one login
+EOF;
+        $this->parser->parse($netrc);
+    }
 }
  
