@@ -2,7 +2,7 @@
     "name": "fduch/netrc",
     "type": "library",
     "description": "netrc manager",
-    "keywords": [],
+    "keywords": ["netrc"],
     "homepage": "https://github.com/fduch/netrc",
     "license": "MIT",
     "authors": [
