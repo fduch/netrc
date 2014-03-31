@@ -3,6 +3,8 @@ netrc
 
 Simple netrc files manager
 
+[![Build Status](https://travis-ci.org/fduch/netrc.svg?branch=master)](https://travis-ci.org/fduch/netrc)
+
 Installation
 --------------
 To install netrc manager into your project please use composer:
