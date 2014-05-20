@@ -39,7 +39,7 @@ class Parser
      */
     public function parse($content)
     {
-        $tokens = array_filter(preg_split("/[\s]+/", $content));
+        $tokens = $this->getTokens($content);
 
         $i = 0;
         $result = array();
@@ -74,6 +74,30 @@ class Parser
         }
 
         return $result;
+    }
+
+    /**
+     * Fetches significative (not inside inline comments) tokens from the original content
+     *
+     * @param $content
+     *
+     * @return array of tokens
+     */
+    private function getTokens($content)
+    {
+        // fetch non-empty lines
+        $lines = preg_split('/\r\n|\r|\n/', $content, -1, PREG_SPLIT_NO_EMPTY);
+        $tokens = array();
+        foreach ($lines as $line) {
+            // throwing tokens after '#' sign
+            $commentCharPosition = strpos($line, "#");
+            $lineWithoutComments = ($commentCharPosition === false) ? $line : substr($line, 0, strpos($line, "#"));
+            // storing current line tokens
+            if ($lineWithoutComments) {
+                $tokens = array_merge($tokens, preg_split('/\s+/', $lineWithoutComments, -1, PREG_SPLIT_NO_EMPTY));
+            }
+        }
+        return $tokens;
     }
 }
  

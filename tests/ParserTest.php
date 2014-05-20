@@ -42,6 +42,33 @@ EOF;
     }
 
     /**
+     * @test
+     */
+    public function emptyLinesAndWhiteSpacesParsedSuccessfully()
+    {
+        $netrc = <<<EOF
+
+
+machine          machine.one login john password         pass1
+machine
+
+
+ machine.two
+login steve
+    password pass2
+
+
+EOF;
+        $this->assertEquals(
+            $this->parser->parse($netrc),
+            array(
+                "machine.one" => array('login' => 'john', 'password' => 'pass1'),
+                "machine.two" => array('login' => 'steve', 'password' => 'pass2'),
+            )
+        );
+    }
+
+    /**
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
@@ -99,6 +126,37 @@ EOF;
 login john
 EOF;
         $this->parser->parse($netrc);
+    }
+
+    /**
+     * @test
+     */
+    public function commentsInNetrcAreIgnored()
+    {
+        $netrc = <<<EOF
+machine machine.one login john password pass1
+
+# machine machine.two
+#login machine.two
+machine machine.two login steve password pass2 #should be omited
+
+#machine machine.two login steve password pass2
+machine machine.three login mike
+     password pass3#should be omited
+# machine machine.two
+#login machine.two
+# steve machine.two
+
+
+EOF;
+        $this->assertEquals(
+            $this->parser->parse($netrc),
+            array(
+                "machine.one"   => array('login' => 'john', 'password' => 'pass1'),
+                "machine.two"   => array('login' => 'steve', 'password' => 'pass2'),
+                "machine.three" => array('login' => 'mike', 'password' => 'pass3'),
+            )
+        );
     }
 }
  
