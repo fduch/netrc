@@ -26,7 +26,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function testCorrectNetrcParsedSuccessfully()
+    public function correctNetrcParsedSuccessfully()
     {
         $netrc = <<<EOF
 machine machine.one login john password pass1
@@ -45,7 +45,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function testIncorrectDefaultThrowsException()
+    public function incorrectDefaultThrowsException()
     {
         $netrc = <<<EOF
 default machine.one login john password pass1
@@ -57,7 +57,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function testIncorrectKeyThrowsException()
+    public function incorrectKeyThrowsException()
     {
         $netrc = <<<EOF
 machine machine.one logOn john password pass1
@@ -69,7 +69,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function testEmptyMachineNameThrowsException()
+    public function emptyMachineNameThrowsException()
     {
         $netrc = <<<EOF
 machine
@@ -81,7 +81,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function testUnsetValueForValidKeyThrowsException()
+    public function unsetValueForValidKeyThrowsException()
     {
         $netrc = <<<EOF
 machine machine.one login
@@ -93,7 +93,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function testAttemtToSetInfoForUnknownMachineThrowsException()
+    public function attemptToSetInfoForUnknownMachineThrowsException()
     {
         $netrc = <<<EOF
 login john
