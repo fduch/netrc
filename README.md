@@ -10,13 +10,7 @@ Installation
 To install netrc manager into your project please use composer:
 
 ```sh
-php composer.phar require fduch/netrc:0.0.3
-```
-
-You can also use current development version of the library by requiring 1.0.x-dev:
-
-```sh
-php composer.phar require fduch/netrc:1.0.x-dev
+php composer.phar require fduch/netrc
 ```
 
 Usage
