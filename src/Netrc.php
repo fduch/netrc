@@ -68,7 +68,7 @@ class Netrc
         // check that netrc file is available
         if (!is_readable($realFilename) || !$content = file_get_contents($realFilename)) {
             throw new FileNotFoundException(
-                "netrc file ($realFilename) does not exist or is not readable"
+                "netrc file ($realFilename) is not readable"
             );
         }
 
