@@ -28,8 +28,10 @@ try {
     $parsed = Netrc::parse();
     // dumps key-value array corresponding to machine.one entry
     var_dump($parsed['machine.one']);
+} catch (FileNotFoundException $e) {
+     // cannot locate readable netrc file
 } catch (ParseException $e) {
-    //something is wrong with your netrc file
+    // something is wrong with your netrc file
 }
 
 ```
