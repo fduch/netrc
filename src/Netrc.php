@@ -13,6 +13,7 @@
 namespace Fduch\Netrc;
 
 use Fduch\Netrc\Exception\FileNotFoundException;
+use Fduch\Netrc\Exception\ParseException;
 
 /**
  * Netrc manager
@@ -24,6 +25,8 @@ class Netrc
     /**
      * Get the default path of the netrc file that will be used if one
      * is not provided.
+     *
+     * @throws FileNotFoundException when netrc default path could not be resolved
      *
      * @return string
      */
@@ -47,7 +50,8 @@ class Netrc
      *
      * @param string|null $filename
      *
-     * @throws ParseException when netrc file could not be read or parsed
+     * @throws FileNotFoundException when netrc file could not be found or is not readable
+     * @throws ParseException when netrc file could not be parsed
      *
      * @return array of netrc values grouped by machines
      */
