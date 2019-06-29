@@ -22,6 +22,7 @@ Parsing system-wide or custom netrc is quite simple:
 
 use Fduch\Netrc\Netrc;
 use Fduch\Netrc\Exception\ParseException;
+use Fduch\Netrc\Exception\FileNotFoundException;
 
 try {
     // you can specify path to netrc file as an argument of Netrc::parse() method
