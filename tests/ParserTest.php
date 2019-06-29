@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Fduch\Netrc;
 
+use Fduch\Netrc\Exception\ParseException;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
@@ -70,11 +71,12 @@ EOF;
     }
 
     /**
-     * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
     public function incorrectDefaultThrowsException() : void
     {
+        $this->expectException(ParseException::class);
+
         $netrc = <<<EOF
 default machine.one login john password pass1
 EOF;
@@ -82,11 +84,12 @@ EOF;
     }
 
     /**
-     * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
     public function incorrectKeyThrowsException() : void
     {
+        $this->expectException(ParseException::class);
+
         $netrc = <<<EOF
 machine machine.one logOn john password pass1
 EOF;
@@ -94,11 +97,12 @@ EOF;
     }
 
     /**
-     * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
     public function emptyMachineNameThrowsException() : void
     {
+        $this->expectException(ParseException::class);
+
         $netrc = <<<EOF
 machine
 EOF;
@@ -106,11 +110,12 @@ EOF;
     }
 
     /**
-     * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
     public function unsetValueForValidKeyThrowsException() : void
     {
+        $this->expectException(ParseException::class);
+
         $netrc = <<<EOF
 machine machine.one login
 EOF;
@@ -118,11 +123,12 @@ EOF;
     }
 
     /**
-     * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
     public function attemptToSetInfoForUnknownMachineThrowsException() : void
     {
+        $this->expectException(ParseException::class);
+
         $netrc = <<<EOF
 login john
 EOF;
