@@ -12,10 +12,10 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": "^7.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.7.0"
+        "phpunit/phpunit": "^7|^8"
     },
     "autoload": {
         "psr-4": { "Fduch\\Netrc\\": "src/" }

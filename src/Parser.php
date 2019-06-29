@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of the Netrc package.
  *
@@ -37,7 +38,7 @@ class Parser
      *
      * @return array of netrc values grouped by machines
      */
-    public function parse($content)
+    public function parse($content): array
     {
         $tokens = $this->getTokens($content);
 
@@ -83,7 +84,7 @@ class Parser
      *
      * @return array of tokens
      */
-    private function getTokens($content)
+    private function getTokens($content) : array
     {
         // fetch non-empty lines
         $lines = preg_split('/\r\n|\r|\n/', $content, -1, PREG_SPLIT_NO_EMPTY);
