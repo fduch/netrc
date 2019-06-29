@@ -12,7 +12,7 @@
 
 namespace Fduch\Netrc;
 
-use Fduch\Netrc\Exception\ParseException;
+use Fduch\Netrc\Exception\FileNotFoundException;
 
 /**
  * Netrc manager
@@ -21,6 +21,27 @@ use Fduch\Netrc\Exception\ParseException;
  */
 class Netrc
 {
+    /**
+     * Get the default path of the netrc file that will be used if one
+     * is not provided.
+     *
+     * @return string
+     */
+    public static function getDefaultPath() {
+        $homePath = getenv('HOME');
+        if (!homePath) {
+            throw new FileNotFoundException(
+                "HOME environment variable must be set for correct netrc handling"
+            );
+        }
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $filename = strtr($homePath, '\\', '/') . '/_netrc';
+        } else {
+            $filename = rtrim($homePath, '/') . '/.netrc';
+        }
+        return $filename;
+    }
+
     /**
      * Parses netrc file specified or default one
      *
@@ -34,20 +55,21 @@ class Netrc
     {
         // fetch netrc filename if it is not specified
         if (!$filename) {
-            if (!$homePath = getenv('HOME')) {
-                throw new ParseException("HOME environment variable must be set for correctly netrc handling");
-            }
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $filename = strtr($homePath, '\\', '/') . '/_netrc';
-            } else {
-                $filename = rtrim($homePath, '/') . '/.netrc';
-            }
+            $filename = self::getDefaultPath();
         }
-        $filename = realpath($filename);
+        $realFilename = realpath($filename);
+
+        if ( !$realFilename || !file_exists( $realFilename ) ) {
+            throw new FileNotFoundException(
+                "The netrc path ($filename) does not resolve to an actual file."
+            );
+        }
 
         // check that netrc file is available
-        if (!file_exists($filename) || !is_readable($filename) || !$content = file_get_contents($filename)) {
-            throw new ParseException("netrc file does not exist or is not readable");
+        if (!is_readable($realFilename) || !$content = file_get_contents($realFilename)) {
+            throw new FileNotFoundException(
+                "netrc file ($realFilename) is not readable"
+            );
         }
 
         // parse file
@@ -55,4 +77,3 @@ class Netrc
         return $parser->parse($content);
     }
 }
- 
