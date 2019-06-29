@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of the Netrc package.
  *
@@ -12,13 +13,13 @@
 
 namespace Fduch\Netrc;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     protected $parser;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->parser = new Parser();
     }
@@ -26,7 +27,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function correctNetrcParsedSuccessfully()
+    public function correctNetrcParsedSuccessfully() : void
     {
         $netrc = <<<EOF
 machine machine.one login john password pass1
@@ -44,7 +45,7 @@ EOF;
     /**
      * @test
      */
-    public function emptyLinesAndWhiteSpacesParsedSuccessfully()
+    public function emptyLinesAndWhiteSpacesParsedSuccessfully() : void
     {
         $netrc = <<<EOF
 
@@ -72,7 +73,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function incorrectDefaultThrowsException()
+    public function incorrectDefaultThrowsException() : void
     {
         $netrc = <<<EOF
 default machine.one login john password pass1
@@ -84,7 +85,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function incorrectKeyThrowsException()
+    public function incorrectKeyThrowsException() : void
     {
         $netrc = <<<EOF
 machine machine.one logOn john password pass1
@@ -96,7 +97,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function emptyMachineNameThrowsException()
+    public function emptyMachineNameThrowsException() : void
     {
         $netrc = <<<EOF
 machine
@@ -108,7 +109,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function unsetValueForValidKeyThrowsException()
+    public function unsetValueForValidKeyThrowsException() : void
     {
         $netrc = <<<EOF
 machine machine.one login
@@ -120,7 +121,7 @@ EOF;
      * @expectedException Fduch\Netrc\Exception\ParseException
      * @test
      */
-    public function attemptToSetInfoForUnknownMachineThrowsException()
+    public function attemptToSetInfoForUnknownMachineThrowsException() : void
     {
         $netrc = <<<EOF
 login john
@@ -131,7 +132,7 @@ EOF;
     /**
      * @test
      */
-    public function commentsInNetrcAreIgnored()
+    public function commentsInNetrcAreIgnored() : void
     {
         $netrc = <<<EOF
 machine machine.one login john password pass1

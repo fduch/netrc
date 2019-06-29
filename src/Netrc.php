@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of the Netrc package.
  *
@@ -30,7 +32,8 @@ class Netrc
      *
      * @return string
      */
-    public static function getDefaultPath() {
+    public static function getDefaultPath() : string
+    {
         $homePath = getenv('HOME');
         if (!homePath) {
             throw new FileNotFoundException(
@@ -55,7 +58,7 @@ class Netrc
      *
      * @return array of netrc values grouped by machines
      */
-    public static function parse($filename = null)
+    public static function parse($filename = null) : array
     {
         // fetch netrc filename if it is not specified
         if (!$filename) {
