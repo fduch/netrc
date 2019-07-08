@@ -35,7 +35,7 @@ class Netrc
     public static function getDefaultPath() : string
     {
         $homePath = getenv('HOME');
-        if (!homePath) {
+        if (!$homePath) {
             throw new FileNotFoundException(
                 "HOME environment variable must be set for correct netrc handling"
             );
